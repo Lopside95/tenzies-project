@@ -70,13 +70,6 @@ function App() {
     );
   }
 
-  // this newGame function works with the ternary of the onClick in the button
-  // but the function can also be put into rollDice()
-  // function newGame() {
-  //   ten && setTen(false);
-  //   setDice(allNewDice);
-  // }
-
   return (
     <div className="tenzies-app">
       <Container>
