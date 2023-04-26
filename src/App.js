@@ -17,10 +17,9 @@ function App() {
     const allHeld = dice.every((die) => die.isHeld);
     const firstValue = dice[0].value;
     const allSame = dice.every((die) => die.value === firstValue);
-
     if (allHeld && allSame) {
       setTen(true);
-      console.log("you won");
+      console.log("win");
     }
   }, [dice]);
 
@@ -35,19 +34,17 @@ function App() {
     const newDice = [];
     for (let i = 0; i < 10; i++) {
       newDice.push(generateNewDie());
-      // with the updated newDice.push, calling allNewDice creates an array of objects
     }
     return newDice;
   }
 
-  const diceElements = dice.map((die) => (
-    <Die
-      key={die.id}
-      value={die.value}
-      isHeld={die.isHeld}
-      holdDice={() => holdDice(die.id)}
-    />
-  ));
+  function holdDice(id) {
+    setDice((prevDice) =>
+      prevDice.map((die) => {
+        return die.id === id ? { ...die, isHeld: !die.isHeld } : die;
+      })
+    );
+  }
 
   function rollDice() {
     if (!ten) {
@@ -62,25 +59,25 @@ function App() {
     }
   }
 
-  function holdDice(id) {
-    setDice((prevDice) =>
-      prevDice.map((die) => {
-        return die.id === id ? { ...die, isHeld: !die.isHeld } : die;
-      })
-    );
-  }
+  const diceElements = dice.map((die) => (
+    <Die
+      key={die.id}
+      value={die.value}
+      isHeld={die.isHeld}
+      holdDice={() => holdDice(die.id)}
+    />
+  ));
 
   return (
     <div className="tenzies-app">
       <Container>
         {ten && <Confetti />}
+
         <Row>
-          <Col>
-            <div className="dice-container">{diceElements}</div>
+          <Col className="dice-container">
+            {diceElements}
             <button className="roll-dice" onClick={rollDice}>
               {ten ? "Reset" : "Roll"}
-              {/* <button className="roll-dice" onClick={ten ? newGame : rollDice}> */}
-              {/* {ten ? <h3>Reset</h3> : <h3>Roll</h3>} */}
             </button>
           </Col>
         </Row>
@@ -90,3 +87,5 @@ function App() {
 }
 
 export default App;
+
+//
