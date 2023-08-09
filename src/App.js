@@ -90,8 +90,8 @@ function App() {
           <Col className="content-col">
             <h2 className="main-header">Tenzies</h2>
             <p className="rules">
-              Roll the dice until all have the same number. Click die to freeze
-              them and leave them out of the next roll
+              Roll the die until all of them have the same number. Click die to
+              freeze them and leave them out of the next roll.
             </p>
             <div className="dice-container">{diceElements}</div>
             <button className="roll-button" onClick={rollDice}>
